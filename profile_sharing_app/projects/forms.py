@@ -5,6 +5,7 @@ from .models import Project, Review
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
+        #featured_image for img upload
         fields = ['title', 'featured_image', 'description',
                   'demo_link', 'source_link']
         widgets = {
