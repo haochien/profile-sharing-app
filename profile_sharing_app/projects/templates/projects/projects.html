@@ -4,6 +4,7 @@
 
   <!-- Main Section -->
   <main class="projects">
+
     <section class="hero-section text-center">
       <div class="container container--narrow">
         <div class="hero-section__box">
@@ -23,38 +24,40 @@
         </div>
       </div>
     </section>
+
     <!-- Search Result: DevList -->
     <section class="projectsList">
       <div class="container">
         <div class="grid grid--three">
-
+          
+        {% for project in projects %}
           <div class="column">
             <div class="card project">
-              <a href="single-project.html" class="project">
-                <img class="project__thumbnail" src="images/project-a.png" alt="project thumbnail" />
+              <a href="{% url 'project' project.id %}" class="project">
+                <img class="project__thumbnail" src="{{project.imageURL}}" alt="project thumbnail" />
+
                 <div class="card__body">
-                  <h3 class="project__title">Yoga Studio Landing Page Website and Design</h3>
+                  <h3 class="project__title">{{project.title}}</h3>
                   <p><a class="project__author" href="profile.html">By Dennis Ivanov</a></p>
                   <p class="project--rating">
-                    <span style="font-weight: bold;">98%</span> Postitive
-                    Feedback (72 Votes)
+                    <span style="font-weight: bold;">{{project.vote_ratio}}</span> Positive
+                    Feedback ({{project.vote_total}}) Vote({{project.vote_total|pluralize:"s"}})
                   </p>
-                  <div class="project__tags">
-                    <span class="tag tag--pill tag--main">
-                      <small>NextJS</small>
-                    </span>
-                    <span class="tag tag--pill tag--main">
-                      <small>GraphQL</small>
-                    </span>
-                    <span class="tag tag--pill tag--main">
-                      <small>TypeScript</small>
-                    </span>
-                  </div>
+
+                  {% for tag in project.tags.all %}
+                    <div class="project__tags">
+                        <span class="tag tag--pill tag--main">
+                        <small>{{tag}}</small>
+                        </span>
+                    </div>
+                  {% endfor %}
+
                 </div>
+
               </a>
             </div>
           </div>
-          
+        {% endfor %}
 
         </div>
       </div>
