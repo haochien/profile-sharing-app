@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Project, Tag
-from .forms import ProjectForm, ReviewForm
+from .forms import ProjectForm 
+#,ReviewForm
 
 # Create your views here.
 def projects(request):
@@ -9,20 +10,23 @@ def projects(request):
 
 
 def projects(request):
-    projects, search_query = searchProjects(request)
-    custom_range, projects = paginateProjects(request, projects, 6)
+    #projects, search_query = searchProjects(request)
+    #custom_range, projects = paginateProjects(request, projects, 6)
 
-    context = {'projects': projects,
-               'search_query': search_query, 'custom_range': custom_range}
+    #context = {'projects': projects,
+    #           'search_query': search_query, 'custom_range': custom_range}
+    context = {}
     return render(request, 'projects/projects.html', context)
 
 
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)
-    form = ReviewForm()
+    #form = ReviewForm()
+    form = None
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        #form = ReviewForm(request.POST)
+        form = None
         review = form.save(commit=False)
         review.project = projectObj
         review.owner = request.user.profile
@@ -30,7 +34,7 @@ def project(request, pk):
 
         projectObj.getVoteCount
 
-        messages.success(request, 'Your review was successfully submitted!')
+        #messages.success(request, 'Your review was successfully submitted!')
         return redirect('project', pk=projectObj.id)
 
     return render(request, 'projects/single-project.html', {'project': projectObj, 'form': form})
@@ -42,7 +46,7 @@ def createProject(request):
 
     if request.method == 'POST':
         newtags = request.POST.get('newtags').replace(',',  " ").split()
-        form = ProjectForm(request.POST, request.FILES)
+        form = ProjectForm(request.POST, request.FILES)  # request.FILES: if the form contains file/img
         if form.is_valid():
             project = form.save(commit=False)
             project.owner = profile
@@ -66,7 +70,7 @@ def updateProject(request, pk):
     if request.method == 'POST':
         newtags = request.POST.get('newtags').replace(',',  " ").split()
 
-        form = ProjectForm(request.POST, request.FILES, instance=project)
+        form = ProjectForm(request.POST, request.FILES, instance=project)  # request.FILES: if the form contains file/img
         if form.is_valid():
             project = form.save()
             for tag in newtags:
