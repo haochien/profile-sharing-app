@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.models import User
 
@@ -16,7 +17,7 @@ def loginUser(request):
         try:
             user = User.objects.get(username=username)
         except:
-            print('Username does not exist')
+            messages.error(request, 'Username does not exist')
 
         user = authenticate(request, username=username, password=password) # this check user name & password
         
@@ -24,7 +25,7 @@ def loginUser(request):
             login(request, user)  #this create session and save as cookie in the browser
             return redirect('profile')
         else:
-            print('Username OR password is incorrect')
+            messages.error(request, 'Username OR password is incorrect')
 
     return render(request, 'users/login_register.html')
 
@@ -32,7 +33,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)  #this delete user session 
-    print('User was logged out!')
+    messages.info(request, 'User was logged out!')
     return redirect('login')
 
 
