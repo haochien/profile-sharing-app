@@ -7,6 +7,7 @@
 
     <div class="auth">
         <div class="card">
+
             <div class="auth__header text-center">
                 <a href="/">
                     <img src="{% static 'images/icon.svg' %}" alt="icon" />
@@ -28,7 +29,7 @@
                     {% endif %} -->
 
                     {% for error in field.errors %}
-                    <p style="color: red;">{{error}}</p>
+                        <p style="color: red;">{{error}}</p>
                     {% endfor %}
 
                 </div>
@@ -39,6 +40,7 @@
                     <input class="btn btn--sub btn--lg" type="submit" value="Sign  In" />
                 </div>
             </form>
+
             <div class="auth__alternative">
                 <p>Already have an Account?</p>
                 <a href="{% url 'login' %}">Log In</a>
@@ -46,12 +48,9 @@
         </div>
     </div>
 
-
-
 {% else %}
 
 <div class="auth">
-
     <div class="card">
 
         <div class="auth__header text-center">
@@ -62,7 +61,7 @@
             <p>Hello Developer, Welcome Back!</p>
         </div>
 
-        <form action="" method="POST" class="form auth__form">
+        <form action="{% url 'login' %}" method="POST" class="form auth__form">
             {% csrf_token %}
             <!-- Input:Username -->
             <div class="form__field">
@@ -80,7 +79,7 @@
 
             <div class="auth__actions">
                 <input class="btn btn--sub btn--lg" type="submit" value="Log In" />
-                <a href="{% url 'reset_password' %}">Forget Password?</a>
+                <a href="">Forget Password?</a>
             </div>
         </form>
 

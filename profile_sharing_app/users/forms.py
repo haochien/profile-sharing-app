@@ -12,6 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
 
     def __init__(self, *args, **kwargs):
+        # set up class to let css apply to each html field
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():

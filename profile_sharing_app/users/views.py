@@ -26,7 +26,7 @@ def loginUser(request):
         
         if user is not None:
             login(request, user)  #this create session and save as cookie in the browser
-            return redirect('profile')
+            return redirect('profiles')
         else:
             messages.error(request, 'Username OR password is incorrect')
 
