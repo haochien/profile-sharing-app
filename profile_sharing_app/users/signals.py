@@ -14,6 +14,8 @@ def createProfile(sender, instance, created, **kwargs):
         profile = Profile.objects.create(
             user=user,
             username=user.username,
+            email = user.email,
+            name = user.first_name
         )
 
 
