@@ -5,19 +5,18 @@ from .forms import ProjectForm
 
 from django.contrib.auth.decorators import login_required
 
+from .utils import searchProjects
+
 # Create your views here.
-def projects(request):
-    
-    return render(request, 'projects/projects.html')
 
 
 def projects(request):
-    #projects, search_query = searchProjects(request)
+    projects, search_query = searchProjects(request)
     #custom_range, projects = paginateProjects(request, projects, 6)
 
     #context = {'projects': projects,
     #           'search_query': search_query, 'custom_range': custom_range}
-    context = {}
+    context = {'projects': projects, 'search_query': search_query}
     return render(request, 'projects/projects.html', context)
 
 
